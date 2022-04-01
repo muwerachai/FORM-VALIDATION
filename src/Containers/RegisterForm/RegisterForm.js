@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import Input from '../Input/Input';
  class RegisterForm extends Component {
       state = {
         formData:{
@@ -10,7 +10,7 @@ import React, { Component } from 'react'
             maxLength: 6,
             required: true
             },
-            error: {status: true,message: ""}
+            error: {status: true,message: "",isTouched: false}
           },
           phoneNumber: {
             value: "",
@@ -18,14 +18,14 @@ import React, { Component } from 'react'
             minLength: 10,
             maxLength: 10
             },
-            error: {status: true,message: ""}
+            error: {status: true,message: "",isTouched: false}
           },
           email:{
             value: "",
             validator: {
             required: true
             },
-            error: {status: true,message: ""}
+            error: {status: true,message: "",isTouched: false}
           },
           password:{
             value:"",
@@ -34,7 +34,7 @@ import React, { Component } from 'react'
             maxLength: 24,
             required: true
               },
-              error: {status: true,message: ""}
+              error: {status: true,message: "",isTouched: false}
         },
         },
         isFormValid: false,
@@ -60,19 +60,28 @@ import React, { Component } from 'react'
               Isvalid = false;
               message = 'ช่องนี้ความยาวอย่างน้อย $(rules.minLength) ตัว';
         }
-        return (Isvalid,message);
+        return {Isvalid,message};
       }
       onChangeInput = (e) => {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
-        const updatedFormupdate = {...this.state.formData};
-        updatedFormupdate[fieldName].value = fieldValue
+        const updatedForm = {...this.state.formData};
+        updatedForm[fieldName].value = fieldValue
         
-        let ( IsValid,message ) = this.checkValue(e.target.value, updatedFormupdate[fieldName].validator);
-        updatedFormupdate(fieldName).error.status = !Isvalid;
-        updatedFormupdate(fieldName).error.message = message;
+        let { Isvalid,message } = this.checkValue(e.target.value, updatedForm[fieldName].validator);
+        updatedForm[fieldName].error.status = !Isvalid;
+        updatedForm[fieldName].error.message = message;
+        updatedForm[fieldName].error.isTouched = true;
+        let newIsFormValid = true;
+        for(let fm in updatedForm)
+        {
+          if(updatedForm[fm].validator.required === true){
+            newIsFormValid = !updatedForm[fm].error.status  && newIsFormValid;
+          }
+        }
         this.setState({
-          [fieldName]: updatedFormupdate
+          [fieldName]: updatedForm,
+          isFormValid: newIsFormValid,
         })
       }
 
@@ -88,14 +97,30 @@ import React, { Component } from 'react'
     return (
       <div className="RegisterForm">
         <form onSubmit={this.onSubmitform}>
-          <input onChange={this.onChangeInput} value={name.value} Classname ="Input Element" name= "name" 
-          placeholder="ชื่อ"/>
-          <input onChange={this.onChangeInput} value={phoneNumber.value} Classname ="Input Element" name= "phoneNumber" 
-          placeholder="เบอร์โทรศัพท์"/>
-          <input onChange={this.onChangeInput} value={email.value}Classname ="Input Element" name= "email" 
-          placeholder="อีเมล์"/>
-          <input onChange={this.onChangeInput} value={password.value}Classname ="Input Element" name= "password" 
-          placeholder="รหัสผ่าน" type="password"/>
+          <input 
+          onChangeInput={this.onChangeInput} 
+          value={name.value}
+          name= "name" 
+          placeholder="ชื่อ" 
+          error={name.error}/>
+          <input 
+          onChangeInput={this.onChangeInput} 
+          value={phoneNumber.value}
+          name= "phoneNumber" 
+          placeholder="เบอร์โทรศัพท์" 
+          error={phoneNumber.error}/>
+          <input 
+          onChangeInput={this.onChangeInput} 
+          value={email.value}
+          name= "email" 
+          placeholder="อีเมล์" 
+          error={email.error}/>
+          <input 
+          onChangeInput={this.onChangeInput} 
+          value={password.value}
+          name= "password" 
+          placeholder="รหัสผ่าน" 
+          error={password.error}/>
           <button disabled={!isFormValid} Classname="Button" >Register</button>
         </form>
       </div>

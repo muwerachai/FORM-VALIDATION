@@ -55,6 +55,14 @@
   background-color: #ccc;
   outline: none;
 }
+.Invalid {
+  border: 1px solid red;
+  background-color: antiquewhite;
+}
+.ErrorMessage {
+  color: red;
+  margin: 5px 0;
+}
 
 .App {
   text-align: center;
