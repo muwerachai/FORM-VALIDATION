@@ -1,6 +1,6 @@
 .Button {
   background-color: transparent;
-  border: 1px,black;
+  border:  none;
   font: inherit;
   font-weight: bold;
   outline: none;
@@ -58,7 +58,7 @@
 }
 .Invalid {
   border: 1px solid red;
-  background-color: #ccc;
+  background-color: #FDA49A;
 }
 .ErrorMessage {
   color: red;

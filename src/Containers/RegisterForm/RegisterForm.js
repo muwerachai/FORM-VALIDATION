@@ -41,28 +41,27 @@ class RegisterForm extends Component {
   }
 
   checkValue = (value, rules) => {
-    let Isvalid = true;
+    let isValid = true;
     let message = "";
     let trimmedValue = value.trim();
-
-    if (rules.required && trimmedValue.length === 0) {
-      Isvalid = false;
-      message = `คุณต้องกรอกช่องนี้`;
-    }
     if (rules.maxlength && trimmedValue.length > rules.maxLength) {
-      Isvalid = false;
+      isValid = false;
       message = `ช่องนี้ความยาวต้องไม่เกิน ${rules.maxLength} ตัว`;
     }
     if (rules.minlength && trimmedValue.length < rules.minLength) {
-      Isvalid = false;
+      isValid = false;
       message = `ช่องนี้ความยาวอย่างน้อย ${rules.minLength} ตัว`;
     }
-    return { Isvalid, message };
+    if (rules.required && trimmedValue.length === 0) {
+      isValid = false;
+      message = `คุณต้องกรอกช่องนี้`;
+    }
+    return { isValid, message };
   }
   onChangeInput = (e) => {
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
-    const updatedForm = { ...this.state.formData };
+    const updatedForm = this.state.formData;
     updatedForm[fieldName].value = fieldValue
 
     let { Isvalid, message } = this.checkValue(e.target.value, updatedForm[fieldName].validator);
@@ -70,9 +69,9 @@ class RegisterForm extends Component {
     updatedForm[fieldName].error.message = message;
     updatedForm[fieldName].error.isTouched = true;
     let newIsFormValid = true;
-    for (let fm in updatedForm) {
-      if (updatedForm[fm].validator.required === true) {
-        newIsFormValid = !updatedForm[fm].error.status && newIsFormValid;
+    for (let fn in updatedForm) {
+      if (updatedForm[fn].validator.required === true) {
+        newIsFormValid = !updatedForm[fn].error.status && newIsFormValid;
       }
     }
     this.setState({
@@ -88,37 +87,36 @@ class RegisterForm extends Component {
 
 
   render() {
-    const { name, phoneNumber, email, password } = this.state.formData
-    const { isFormValid } = this.state
+    const { name, phoneNumber, email, password } = this.state.formData;
+    const { isFormValid } = this.state;
     return (
       <div className="RegisterForm">
         <form onSubmit={this.onSubmitForm}>
           <Input
-            onChange={this.onChangeInput}
+            onChangeInput={this.onChangeInput}
             value={name.value}
             name="name"
             placeholder="ชื่อ"
             error={name.error} />
           <Input
-            onChange={this.onChangeInput}
+            onChangeInput={this.onChangeInput}
             value={phoneNumber.value}
             name="phoneNumber"
             placeholder="เบอร์โทรศัพท์"
             error={phoneNumber.error} />
           <Input
-            onChange={this.onChangeInput}
+            onChangeInput={this.onChangeInput}
             value={email.value}
             name="email"
             placeholder="อีเมล์"
             error={email.error} />
           <Input
-            onChange={this.onChangeInput}
+            onChangeInput={this.onChangeInput}
             value={password.value}
             name="password"
             placeholder="รหัสผ่าน"
-            type="password"
             error={password.error} />
-          <button disabled={!isFormValid} className="Button" >Register</button>
+          <button disabled={!isFormValid} className="submit" >Register</button>
         </form>
       </div>
 

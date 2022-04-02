@@ -12,7 +12,8 @@ export class Input extends Component {
     render() {
     return (
         <>
-        <input onChange={this.props.onChange} 
+        <input 
+        onChange={this.props.onChangeInput} 
         value={this.props.value} 
         className ={this.getClassCSS()} 
         name={this.props.name} 
