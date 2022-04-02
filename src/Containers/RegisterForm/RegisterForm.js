@@ -76,7 +76,7 @@ class RegisterForm extends Component {
       }
     }
     this.setState({
-      [fieldName]: updatedForm,
+      formData: updatedForm,
       isFormValid: newIsFormValid,
     })
   }
