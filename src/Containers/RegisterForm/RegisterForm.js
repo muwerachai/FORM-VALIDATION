@@ -116,6 +116,7 @@ class RegisterForm extends Component {
             value={password.value}
             name="password"
             placeholder="รหัสผ่าน"
+            type="password"
             error={password.error} />
           <button disabled={!isFormValid} className="Button" >Register</button>
         </form>
