@@ -92,7 +92,7 @@ class RegisterForm extends Component {
     const { isFormValid } = this.state
     return (
       <div className="RegisterForm">
-        <form onSubmit={this.onSubmitform}>
+        <form onSubmit={this.onSubmitForm}>
           <Input
             onChange={this.onChangeInput}
             value={name.value}
