@@ -57,7 +57,7 @@
 }
 .Invalid {
   border: 1px solid red;
-  background-color: antiquewhite;
+  background-color: #ccc;
 }
 .ErrorMessage {
   color: red;

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class Input extends Component {
   
     getClassCSS = () => {
-        let cssClass = "Input Element";
+        let cssClass = "Input InputElement";
         if(this.props.console.error.status && this.props.error.isTouched){
             cssClass += "Invalid";
         }
@@ -12,12 +12,12 @@ export class Input extends Component {
     render() {
     return (
         <>
-        <input onChange={this.props.onChangeInput} 
+        <input onChange={this.props.onChange} 
         value={this.props.value} 
-        ClassName ={this.getClassCSS()} 
+        className ={this.getClassCSS()} 
         name={this.props.name} 
         placeholder={this.props.placeholder} />
-        <p ClassName="ErrorMessage">{this.props.error.message}</p>
+        <p className="ErrorMessage">{this.props.error.message}</p>
         </>
     )
 }
