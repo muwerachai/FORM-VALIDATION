@@ -4,8 +4,8 @@ export class Input extends Component {
   
     getClassCSS = () => {
         let cssClass = "Input InputElement";
-        if(this.props.console.error.status && this.props.error.isTouched){
-            cssClass += "Invalid";
+        if(this.props.error.status && this.props.error.isTouched){
+            cssClass += " Invalid";
         }
         return cssClass;
     }

@@ -47,15 +47,15 @@ class RegisterForm extends Component {
 
     if (rules.required && trimmedValue.length === 0) {
       Isvalid = false;
-      message = 'คุณต้องกรอกช่องนี้';
+      message = `คุณต้องกรอกช่องนี้`;
     }
     if (rules.maxlength && trimmedValue.length > rules.maxLength) {
       Isvalid = false;
-      message = 'ช่องนี้ความยาวต้องไม่เกิน $(rules.maxLength) ตัว';
+      message = `ช่องนี้ความยาวต้องไม่เกิน ${rules.maxLength} ตัว`;
     }
     if (rules.minlength && trimmedValue.length < rules.minLength) {
       Isvalid = false;
-      message = 'ช่องนี้ความยาวอย่างน้อย $(rules.minLength) ตัว';
+      message = `ช่องนี้ความยาวอย่างน้อย ${rules.minLength} ตัว`;
     }
     return { Isvalid, message };
   }
